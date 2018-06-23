@@ -1,0 +1,56 @@
+.mainDiv{
+  padding: 30px;
+  margin-bottom: 50px;
+	background-color: #ffffff;
+    color:black;
+	-webkit-box-shadow: 0 4px 4px -1px rgba(0,0,0,0.1);
+	-moz-box-shadow: 0 4px 4px -1px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 4px -1px rgba(0,0,0,0.1);
+}
+ input[type="time"]{
+  font-size: 18px;
+  width: 70%;
+  max-width:100px;
+  margin: 5px;
+ }
+ .btn{
+   border-radius: 25px;
+   max-width: 260px;
+ }
+ .resource:not(:last-child){
+	border-bottom: 0px;
+}
+@media (max-width:550px){
+  h2{
+    font-size:25px;
+  }
+}
+ input[type="date"]{
+  font-size: 14px;
+  width: 70%;
+  max-width:150px;
+  margin: 5px;
+}
+agm-map {
+	height: 300px;
+  }
+  span.label{
+    vertical-align:center;
+    margin-right: 3px;
+    font-size:18px;
+  }
+  span.label:hover{
+      cursor: pointer;
+  }
+  .back:hover{
+    cursor:hand;
+  }
+  @media (max-width:350px){
+    h1{
+      font-size:20px;
+    }
+    .mbr-hero__text{
+      font-size:20px;
+    }
+  }
+  

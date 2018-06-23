@@ -1,0 +1,144 @@
+
+    
+      <div class="container-fluid" id="generateform" *ngIf="!bstate">
+          <h1 style="margin-top:150px;text-align:center;color:white">Organise Event</h1>
+          <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 mainDiv">
+    
+    <form (submit)="OnGenerate()">
+      <flash-message></flash-message>
+      <div class="form-group">
+        <label for="event_type">Event Type</label>
+        <select name="event_type" class="form-control selectpicker"  [(ngModel)]="event.event_type">                       
+          <option value="Conference">Conference</option>
+          <option value="Seminar">Seminar</option>
+          <option value="Meeting">Meeting</option>
+          <option value="Birthday">Birthday</option>
+          <option value="Wedding">Wedding</option>
+          <option value="Business">Business</option>
+          <option value="Not">Not on the list</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="location">Location</label>
+        <!-- <input type="text" class="form-control" [(ngModel)]="event.location.lat" name="location"> -->
+        <div class="form-group">
+            <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+        </div>
+      </div>
+      <div class="form-group">
+          <label for="location">Range</label>
+          <!-- <input type="text" class="form-control" [(ngModel)]="event.location.lat" name="location"> -->
+          <select name="range" class="form-control selectpicker"  [(ngModel)]="event.range">                       
+              <option value="20">20Km</option>
+              <option value="50">50Km</option>
+              <option value="100">100Km</option>
+              <option value="200">200Km</option>
+              <option value="300">300Km</option>
+              <option value="400">400Km</option>
+              <option value="500">500Km</option>
+            </select>
+        </div>
+      <div class="form-group">
+          <label for="date">Date</label>
+          <div class="form-group">
+              <div style="display:inline;"><label for="startdate">from</label><input type="date" [(ngModel)]="event.dates.start" name="startdate" (change)="OnEndDate()"></div><div><label for="enddate">to&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="date" [(ngModel)]="event.dates.end" name="enddate" (change)="OnEndDate()"></div>
+            </div>
+        </div>
+        <div *ngIf="(dates < 1) || (dates > 15)" class="form-group">
+            <div style="width: 100%;background-color:lightsalmon;color:white;text-align:center">Invalid dates</div>
+        </div>
+        <div *ngIf="(dates > 0) && (dates <= MAX_DATES)">
+        <div class="form-group" *ngFor="let item of createRange(dates);let i=index">
+            <label for="time">Timing&nbsp;&nbsp;{{i + 1}}({{getDate(i)}})</label>
+            <div class="form-group">
+              <div style="display:inline;"><label for="starttime">from</label><input type="time" [(ngModel)]="event.timing[i].start" [name]="'starttime' + i"></div><div><label for="endtime">to&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="time" [(ngModel)]="event.timing[i].end" [name]="'endtime' + i"></div>
+          </div>
+        </div>
+          </div>
+          <div class="form-group">
+              <label for="budget">Number of Guests</label>
+              <input type="number" class="form-control" [(ngModel)]="event.numberofguests" name="n umberofguests">
+            </div>
+          <div class="form-group" style="margin-bottom:25px;">
+            <label for="budget">Total Budget €</label>
+            <input type="number" class="form-control" [(ngModel)]="event.budget" name="budget" placeholder="EURO">
+          </div>
+          
+          <div class="form-group">
+            <label for="services">Services</label> 
+            <div class="form-group">
+            <span *ngFor="let item of resources;let i = index" [ngClass]="item.classname" (click)="toggleClass(i)">
+              <img *ngIf="item.classname.selected" src="https://cdn.jotfor.ms/img/check-icon.png" alt="" width="25" height="25">&nbsp;&nbsp;{{ item.name}} </span>
+          </div>
+        </div>
+          <div class="mbr-buttons mbr-buttons--right"><input type="submit" class="mbr-buttons__btn btn btn-lg btn-info" value="Generate"> <a class="mbr-buttons__btn btn btn-lg btn-danger" (click)="OnClear()">Reset</a></div>
+    </form>
+    <br>
+    </div>
+  </div>
+
+  <div *ngIf="bstate">
+      <section class="engine"><a href="#">Service Provider</a></section><section class="mbr-box mbr-section mbr-section--relative mbr-section--fixed-size mbr-section--bg-adapted mbr-parallax-background" id="header1-1a" data-rv-view="448" style="background-image:url(assets/images/mbr-1619x1080.jpg);height:300px;">
+        <div class="mbr-box__magnet mbr-box__magnet--sm-padding mbr-box__magnet--center-left mbr-after-navbar" >		
+            <div class="mbr-box__container mbr-section__container container">
+                <div class="mbr-box mbr-box--stretched">
+                  <div class="mbr-box__magnet mbr-box__magnet--center-left">
+                    <div class="row">
+                      <div class=" col-sm-10" >
+                        <div class="mbr-hero animated fadeInUp">
+                            <h2 class="mbr-hero__text">{{event.event_type + "   Package"}}</h2>
+                        </div>
+                        
+                    </div>
+                    
+                    </div>
+                </div></div>
+            </div>
+           <div >
+            <img src="assets/images/back.gif" width="40" height="30" (click)="OnBack()" class="back">
+            <label style="
+                  color: orange;
+                  font-size: 18px;
+                  font-weight: 800;
+              ">Back to organise event form</label>
+          </div>
+        </div>
+      </section>
+    
+   
+    <app-listing *ngFor="let item of packagesets" [inputs] = "item" [level] = "2" (onRegenerated)="onRegenerated($event)" #resource></app-listing>
+    <div class="container">
+      <div class="row" *ngIf="generatedpackage.length">
+        <div class="col-xs-10 col-xs-offset-1" style="padding: 10px;padding-bottom: 0;margin-bottom: 10px;color:white">
+    <table class="table" style="margin-bottom: 10px;margin-top: 30px;">
+      <thead>
+        <tr>
+          <th style="color:coral;font-size:20px;"> Invoice</th>
+          <th></th>
+          <th></th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item1 of generatedpackage">
+          <td>{{item1.name}}</td>
+          <td>{{item1.price+ ' × ' + hours + 'hr'}} </td>
+          <td>{{item1.price * hours }}</td>
+        </tr>
+        <tr>
+          <td>TOTAL</td>
+          <td>{{total + ' + ' + fee + '(fee)' + ' = '}} <label>{{total + fee}}€</label></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+  </div>
+  <div class="row">
+    <div *ngIf = "!bRedirecting" class="mbr-buttons mbr-buttons--center" style="margin-top: 20px;"><a class="mbr-buttons__btn btn btn-lg btn-success" [hidden] = "generatedpackage.length < 1" (click)="OnPay()">Pay</a> <a class="mbr-buttons__btn btn btn-lg btn-info" (click)="OnRegenerate()">Regenerate Whole Package</a></div>
+    <div *ngIf = "bRedirecting" class="col-sm-offset-2" style="margin-top: 20px;"><img style="margin: auto" src="assets/images/loading.gif" class = "col-sm-3 col-sm-offset-1" style="width:150px"></div>
+  </div>
+  </div>
+    
+</div>

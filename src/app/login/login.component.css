@@ -1,0 +1,18 @@
+.maindiv{
+	color:white;
+	margin-top:150px;
+}
+.mbr-buttons__btn{
+    white-space: normal;
+}
+.back{
+    margin-bottom:15px;
+    margin-left:9%; 
+  }
+
+@media (max-width:350px){
+    h1{
+      font-size:20px;
+    }
+  }
+

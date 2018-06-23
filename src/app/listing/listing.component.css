@@ -1,0 +1,85 @@
+.divResource{
+    
+    padding-top: 10px; 
+    padding-bottom: 10px;
+    border-bottom: 3px;
+    box-shadow: #555 1px 1px 8px 1px;
+    background-color: rgb(21, 24, 32);
+}
+.full{
+    width: 600px;
+}
+.slider{
+    width:250px;
+    height:200px;
+}
+.btn{
+    border-radius: 7px !important;
+    padding: 2px 4px 2px 4px !important;
+    margin-right: 3px !important;
+    max-width: 150px;
+}
+.generatebtn{
+    margin-right: 5px;
+    padding: 0px;
+}
+.ccc{
+    float: right;
+    /* top:-396px; */
+}
+img{
+    height: 450px;
+}
+.generatebtn{
+    margin-right: 5px;
+    padding: 0px;
+    font-size: 14px;
+    color:slategray;
+}
+.generatebtn:hover{
+    color:rgb(255, 255, 255);
+}
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+  }
+  .rating > span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+  }
+  .rating > span{
+      font-size: 25px;
+      color: orange;
+  }
+  .rating > span:hover:before,
+  .rating > span:hover ~ span:before {
+     content: "\2605";
+     position: absolute;
+  }
+  textarea{
+    width: 100%;
+    height: 130px;
+}
+textarea.ng-pristine {
+    border: 2px solid pink;
+
+}
+
+@media (max-width:550px){
+    h1{
+      font-size:20px;
+    }
+    .mbr-hero__text{
+      font-size:20px;
+    }
+    .mbr-header__text{
+        font-size:16px;
+    }
+    img{
+        height: 250px;
+    }
+  }
+  .modal{
+      color: black;
+  }

@@ -1,0 +1,178 @@
+<div class="container">
+        <h1 style="margin-top:150px;text-align:center">Analysis & Support</h1>
+        <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12 mainDiv">
+        <div class="row">
+        <div class="space-6"></div>
+
+        <div class="col-sm-12">
+                <div style="margin-bottom: 15px;">
+                    <a routerLink="/service/view">
+                        <i class="ace-icon fa fa-arrow-left"></i>
+                        Back
+                    </a>
+                </div>
+            <div class="widget-box">
+                
+                <div class="widget-header widget-header-flat widget-header-small">
+                    <h5 class="widget-title">
+                        <i class="ace-icon fa fa-signal"></i>
+                        Analysis
+                    </h5>
+
+                    <div class="widget-toolbar no-border">
+                        <div class="inline dropdown-hover">
+                            <button class="btn btn-minier btn-primary">
+                                {{selectedYear}}
+                                <i class="ace-icon fa fa-angle-down icon-on-right bigger-110"></i>
+                            </button>
+
+                            <ul class="dropdown-menu dropdown-menu-right dropdown-125 dropdown-lighter dropdown-close dropdown-caret">
+                                <li *ngFor="let item of years;let i = index;let first = first" class="active:first">
+                                    <a class="blue" (click)="selectYear(i)">
+                                        <i class="ace-icon fa fa-caret-right bigger-110">&nbsp;</i>
+                                        {{item}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main">
+                                    <div class="infobox infobox-pink">
+                                        <div class="infobox-icon">
+                                            <i class="ace-icon fa fa-euro"></i>
+                                        </div>
+
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number">{{money + ' € '}}</span>
+                                            <div class="infobox-content">Earned</div>
+                                        </div>
+                             
+                                    </div>
+
+                                    <div class="infobox infobox-pin">
+                                        <div class="infobox-icon">
+                                            <i class="ace-icon fa fa-clock-o"></i>
+                                        </div>
+
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number">{{time +'hr'}}</span>
+                                            <div class="infobox-content">Purchased time</div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="infobox infobox-green">
+                                        <div class="infobox-icon">
+                                            <i class="ace-icon fa fa-thumbs-o-up"></i>
+                                        </div>
+
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number">{{generated}}</span>
+                                            <div class="infobox-content">Choosed over others</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="infobox infobox-red">
+                                        <div class="infobox-icon">
+                                            <i class="ace-icon fa fa-thumbs-o-down"></i>
+                                        </div>
+
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number">{{regenerated}}</span>
+                                            <div class="infobox-content">Skipped to others</div>
+                                        </div> 
+                                    </div>
+                                    <div class="infobox infobox-blue">
+                                        <div class="infobox-icon">
+                                            <i class="ace-icon fa fa-facebook"></i>
+                                        </div>
+
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number">{{facebook}}</span>
+                                            <div class="infobox-content">Facebook Shared</div>
+                                        </div>
+
+                                        
+                                    </div>
+                                    <div class="infobox infobox-blue">
+                                        <div class="infobox-icon">
+                                            <i class="ace-icon fa fa-twitter"></i>
+                                        </div>
+
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number">{{twitter}}</span>
+                                            <div class="infobox-content">Twitter Shared</div>
+                                        </div>
+
+                                        
+                                    </div>
+                                    
+
+                                    
+                                 
+                                    <div style="margin-top:20px;width:100%;" class="chart">
+                                            
+                                            <canvas 
+                                                baseChart
+                                                [chartType]="'line'"
+                                                [datasets]="chartData"
+                                                [labels]="chartLabels"
+                                                [options]="chartOptions"
+                                                [legend]="true"
+                                                >
+                                                
+                                            </canvas>
+                                          </div>
+                    </div><!-- /.widget-main -->
+                </div><!-- /.widget-body -->
+            </div><!-- /.widget-box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+
+    <div class="hr hr32 hr-dotted"></div>
+
+    <div class="row">
+        <div class="col-sm-12">
+                <div class="widget-box transparent">
+                        <div class="widget-header widget-header-flat">
+                            <h4 class="widget-title lighter">
+                                <i class="ace-icon fa fa-star orange"></i>
+                                Get Supports
+                            </h4>
+                            <div class="widget-toolbar">
+
+                            </div>
+                        </div>
+                        <div class="widget-body" id="support">
+                            <div class="widget-main no-padding">
+                                    <div class="progress pos-rel" [attr.data-percent]="progress + '%'">
+                                            <div class="progress-bar" [ngStyle]="{'width':progress + '%'}"></div>
+                                        </div>   
+                                    <div *ngIf="progress == 100">
+                                            <div class="alert alert-info">              
+                                                    <strong>Good!</strong>
+        
+                                                    {{suggestions[0]}}
+                                                    <br>
+                                                </div>
+                                    </div>
+                                    <div *ngIf="progress != 100">
+                                    <div class="alert alert-danger" *ngFor="let item of suggestions">
+                                            <strong>
+                                                <i class="ace-icon fa fa-times"></i>
+                                                {{item.name}}
+                                            </strong>
+                                                {{item.text}}
+                                            <br>
+                                        </div>
+                                    </div>
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
+                    </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div>
+</div>

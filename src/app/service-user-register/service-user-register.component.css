@@ -1,0 +1,27 @@
+
+
+  form{
+	margin-top: 50px;
+}
+.routelink:hover{
+	cursor: pointer;
+}
+@media (max-width:350px){
+	h1{
+		font-size:20px;
+
+	}
+	input[type='date']{
+		width: 75%;
+	}
+}
+.back{
+	margin-bottom:15px;
+	margin-left:9%; 
+}
+ .abtn:hover{
+    color:rgb(241, 225, 225);
+  }
+  .abtn{
+  color:rgb(112, 198, 115);
+  }

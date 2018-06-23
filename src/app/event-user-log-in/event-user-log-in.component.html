@@ -1,0 +1,27 @@
+<div class="container-fluid maindiv">
+    <h1 style="margin-top:150px;text-align:center;" class="routelink" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+      true}" [routerLink]="['/login']">Log In</h1>
+  <div class="col-md-4 col-md-offset-4 col-sm-8  col-sm-offset-2 col-xs-10 col-xs-offset-1">
+  
+    <div class="row">
+    <form (submit)="OnLoginSubmitTrue()">
+      <legend style="text-align:center;color:white">Event Organiser
+      </legend> 
+      <flash-message></flash-message>
+      <div class="form-group">
+        <label for="username">UserName</label>
+        <input type="text" class="form-control" [(ngModel)]="eventuser.username" name="username">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" [(ngModel)]="eventuser.password" name="password">
+      </div>
+      <input type="submit" value="Login" class="btn btn-success" style="width:100%;">
+    </form>
+
+    </div>
+    <br>
+    <p>New account? <a class="nav-link abtn" [routerLink]="['/event/register']" href="">Sign Up</a></p>
+    <p>Forgot Password? <a class="nav-link abtn" [routerLink]="['/event/forgot']" href="">Click here</a></p>
+  </div>
+  </div>

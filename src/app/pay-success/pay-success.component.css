@@ -1,0 +1,21 @@
+.invoice{
+    text-align: center !important;
+    margin-bottom: 15px !important;
+    margin-top:100px;
+    padding: 20px 20px 10px 20px !important;
+    border: 1px solid #f2f2f2 !important;
+    border-radius: 25px;
+}
+.main{
+    margin:20px auto;
+    max-width: 500px;
+}
+.invoice-footer{
+    font-size: 20px;
+    font-weight: 800;
+}
+.invoice-failure{
+    font-size: 20px;
+    color:darkred;
+    font-weight: 800;
+}

@@ -1,0 +1,21 @@
+<div class="container-fluid maindiv">
+    <h1 style="margin-top:150px;text-align:center;">Reset Password</h1>
+    <br>
+  <div class="col-md-4 col-md-offset-4 col-sm-6  col-sm-offset-3 col-xs-12 main">
+  <form (submit)="OnResetSubmit()">
+    <flash-message></flash-message>
+    <div class="form-group">
+      <label for="username">New Password</label>
+      <input type="password" class="form-control" [(ngModel)]="password" name="password">
+    </div>
+    <div class="form-group">
+      <label for="password">Confirm Password</label>
+      <input type="password" class="form-control" [(ngModel)]="confirmpassword" name="cpassword">
+    </div>
+    <input type="submit" value="Submit" class="btn btn-success" style="width:100%;">
+  </form>
+  <br>
+  <a class="nav-link abtn" [routerLink]="['/event/login']">Log In</a>
+  <a class="nav-link abtn" [routerLink]="['/event/register']" style="float:right;">Sign Up</a>
+  </div>
+</div>

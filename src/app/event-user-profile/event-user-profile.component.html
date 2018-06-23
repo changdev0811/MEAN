@@ -1,0 +1,80 @@
+
+<div class="container" style="margin-top:100px;">
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+   
+          <flash-message></flash-message>
+          <div class="panel panel-info">
+            <div class="panel-heading" style="border:none;color: #ffffff;background-color: #338cb9;">
+              <h3 class="panel-title">Edit Profile</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class=" col-md-12 col-lg-12 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+ 
+                        <!-- lastname:String;
+                        dateofbirth:Date;
+                        phone:String;
+                        email:String;
+                        password:String;
+                        address:String;
+                        country:String;
+                        usertype:String; -->
+    
+                      <tr>
+                        <td>Email</td>
+                        <td><input [(ngModel)]="eventuser.email" name="email"  type="email"></td>
+                      </tr> 
+                      <tr>
+                        <td>First Name</td>
+                        <td><input  [(ngModel)]="eventuser.firstname" name="firstname"   type="text"></td>
+                      </tr>
+        
+                             <tr>
+                        <td>Last Name</td>
+                        <td><input  [(ngModel)]="eventuser.lastname" name="lastname"   type="text"></td>
+                      </tr>
+                        <tr>
+                        <td>Date Of Birth</td>
+                        <td><input  id="dateofbirth" name="dateofbirth"  style="padding:0;" type="date"  [value]="eventuser.dateofbirth.slice(0,10)"></td>
+                      </tr>
+                      <tr>
+                        <td>Phone</td>
+                        <td><input name="phone" placeholder="(+7)555-1212" [(ngModel)]="eventuser.phone" type="text"></td>
+                      </tr>
+                      <tr>
+                        <td>Country</td>
+                        <td>
+                          <select name="country"   style="width:100%;height:35px;" (focus)="OnGetCountries()" id="country">
+                            
+                              <option *ngFor="let country of countries" [value]="country.name" [selected]="country.name == eventuser.country">{{country.name}}</option>
+            
+                            </select>
+                        </td>
+                  
+                      </tr>
+                     <tr>
+                       <td>Address</td>
+                       <td><input  [(ngModel)]="eventuser.address" name="address"   type="text"></td>
+                     </tr>
+                    </tbody>
+                  </table>
+                  
+                </div>
+              </div>
+            </div>
+                 <div class="panel-footer" style="height: 60px;">
+                        
+                        <span class="pull-right">
+                            <a type="button" class="btn btn-sm btn-warning" (click)="OnEdit()"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a type="button" class="btn btn-sm btn-danger" (click)="OnClose()"><i class="glyphicon glyphicon-remove"></i></a>
+                        </span>
+                    </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,41 @@
+<div class="container" style="margin-top:100px;">
+<div class="row">
+    <div class="col-12">
+<div class="card-box table-responsive">
+<h4 class="m-t-0 header-title"><b>Booking Table</b></h4>
+
+<flash-message></flash-message>
+<table id="datatable" class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Event Type</th>
+        <th>Timing</th>
+        <th>Guests</th>
+        
+        <th>Price(€)</th>
+        <th>Booked Date</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+
+
+    <tbody>
+    <tr *ngFor = "let item of bookings">
+        <td><a [routerLink]="['/events', item.id]">{{item.id}}</a></td>
+        <td>{{item.name}}</td>
+        <td> <p *ngFor="let item1 of item.timing;let i = index">{{getTiming(item, i)}}</p>
+        <td>{{item.numberofguests}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.booked_date.slice(0,10)}}</td>
+        <td><span *ngIf = "!isCompleted(item)" class="label label-info label-warning">Pending</span><span *ngIf = "isCompleted(item)" class="label label-lg label-info">Completed</span></td>
+    </tr>
+    
+    </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+

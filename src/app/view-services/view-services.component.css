@@ -1,0 +1,31 @@
+.mbr-buttons__btn{
+    white-space: normal;
+}
+@media (max-width:650px){
+    h1{
+      font-size:24px;
+    }
+    .mbr-hero__text{
+      font-size:26px;
+    }
+    .mbr-hero__subtext{
+        font-size:18px;
+      }
+      .mbr-article{
+        font-size:16px;
+      }
+  }
+@media (max-width:350px){
+    h1{
+      font-size:20px;
+    }
+    .mbr-hero__text{
+      font-size:18px;
+    }
+    .mbr-hero__subtext{
+        font-size:16px;
+      }
+      .mbr-article{
+        font-size:14px;
+      }
+  }

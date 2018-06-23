@@ -1,0 +1,6 @@
+<div class="main">
+  <div class="invoice">
+    <div><img *ngIf="bStatus == 1" src="assets/images/success.png" width="150px" alt=""><img *ngIf="bStatus == -1" src="assets/images/failure.png" width="150px" alt=""><img *ngIf="!bStatus" src="assets/images/loading.gif" width="150px" alt=""></div>
+    <div><a *ngIf="bStatus == 1" class="invoice-footer" routerLink="/event/mybooking">Go to My booking page</a><a *ngIf="bStatus == -1" class="invoice-failure" routerLink="/event/organise">Back to Event page</a></div>
+  </div>
+</div>

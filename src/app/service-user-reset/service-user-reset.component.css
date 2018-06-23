@@ -1,0 +1,23 @@
+.maindiv{
+	color:white;
+	margin-top:50px;
+}
+.abtn:hover{
+    color:rgb(241, 225, 225);
+  }
+  .abtn{
+  color:rgb(112, 198, 115);
+  }
+  @media (max-width:350px){
+    h1{
+      font-size:20px;
+  
+    }
+    input[type='date']{
+      width: 75%;
+    }
+  }
+  .back{
+    margin-bottom:15px;
+    margin-left:9%; 
+  }

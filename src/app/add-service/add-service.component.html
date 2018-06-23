@@ -1,0 +1,153 @@
+
+<div class="container-fluid">
+    <h1 style="margin-top:150px;text-align:center">Add Service</h1>
+    <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 mainDiv">
+    <div class="row ">
+        <legend style="text-align:center;"><h3>Upload images</h3></legend>
+        <div class="col-md-4 col-sm-4  col-xs-10 " style="margin-bottom:10px;">
+            <input type="file" class="form-control col-md-4 col-sm-4  col-xs-10" name="myImage" ng2FileSelect [uploader]="uploader" multiple  value="Open" />
+        </div>
+            <!-- <div class="col-md-1 col-sm-3 col-xs-10 col-xs-offset-1" style="margin:0px;margin-top:10px;">
+                <span class="label label-info" style="font-size:100%;vertical-align:center;">selected: {{ uploader?.queue?.length }}</span>
+            </div> -->
+    </div>
+    <div class="row">
+        <table class="table col-md-12 col-sm-12 col-xs-12  table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Progress</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of uploader.queue">
+                    <td><strong>{{ item.file.name }}</strong></td>
+                    <td nowrap>{{ item.file.size/1024/1024 | number:'.2' }} MB</td>
+                    <td>
+                        <div class="progress" style="margin-bottom: 0">
+                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                        <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                        <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                    </td>
+                    <td nowrap>
+                    <a
+                    (click)="item.remove()">
+                    <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+          </div>
+        <div class="row">
+                  <div clas = "col-md-10">
+                      Queue progress:
+                      <div class="progress">
+                          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                      </div>
+                  </div>
+                  </div>
+        <br><br>
+        <div class="row">
+            <button class="col-md-3 col-sm-3 col-xs-10 col-xs-offset-1"
+                    (click)="uploader.uploadAll()" [hidden]="!uploader.getNotUploadedItems().length" style="height:35px;">
+                <span class="glyphicon glyphicon-upload"></span> Upload
+            </button>
+            <button class="col-md-3 col-sm-3 col-xs-10 col-xs-offset-1"
+                    (click)="uploader.clearQueue()" [hidden]="!uploader.queue.length" style="height:35px;">
+                <span class="glyphicon glyphicon-trash"></span> Clear
+            </button>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+            <form class="form-horizontal formMain" (submit)="onSubmit()"  id="contact_form">
+                <legend style="text-align:center;"><h3>Service Details</h3></legend>
+                <flash-message></flash-message>
+                <fieldset>
+                  <div class="form-group" >
+                      <label class="col-md-2 control-label" >Name</label> 
+                      <div class="col-md-8 inputGroupContainer">
+                      <div class="input-group">
+                      <span class="input-group-addon"><i class="glyphicon glyphicon glyphicon-th-list"></i></span>
+                      <select name="name" class="form-control selectpicker"  [(ngModel)]="model.name">                       
+                        <option value="Catering">Catering</option>
+                          <option value="Venue">Venue</option>
+                          <option value="DJ">DJ</option>
+                          <option value="Music">Music</option>
+                          <option value="Photography">Photography</option>
+                      </select>
+                      </div>
+                      </div>	
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Description</label>  
+                        <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                        <textarea  [(ngModel)]="model.description" name="description"  class="form-control"  type="text" required></textarea>
+                          </div>
+                        </div>     
+                      </div>
+                      <div class="form-group">
+                          <label class="col-md-2 control-label">Location</label>  
+                          <div class="col-md-8 inputGroupContainer">
+                          <div class="input-group">
+                          <span class="input-group-addon" style="border-right:1px solid #ccc;"><i class="glyphicon glyphicon glyphicon-th"></i></span>
+                          <!-- <agm-map [latitude]="lat" [longitude]="lng">
+                                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                              </agm-map> -->
+                              <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search >
+                            </div>
+                          </div>     
+                        </div>
+                        <div class="form-group">
+                                <label class="col-md-2 control-label">Days</label>  
+                                  <div class="col-md-8 inputGroupContainer">
+                                  <div class="input-group daysdiv">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    <div  *ngFor="let item of days;let i = index" [ngClass]="item.classname"  style="height: auto">
+                                            <label (click)="toggleClass(i)" ><img *ngIf="item.classname.selected" src="https://cdn.jotfor.ms/img/check-icon.png" alt="" width="25" height="25">&nbsp;&nbsp;{{"   " + item.name}} </label>
+                                        <div *ngIf="item.classname.selected" style="margin-left:15px;"><label for="starttime">from</label><input type="time" [id]="item.name + '_start'" name="time"><label for="endtime">to</label> <input type="time"  [id]="item.name + '_end'" name="endtime"></div>
+                                    </div>
+                                            
+                                  </div>
+                                </div>
+                              </div>    
+            
+                        <div class="form-group">
+                                <label class="col-md-2 control-label">Number of Guests</label>  
+                                <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input  [(ngModel)]="model.numberofguests" name="numberofguests"  class="form-control"  type="number">
+                                  </div>
+                                </div>     
+                              </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Price per hour</label>  
+                              <div class="col-md-8 inputGroupContainer">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
+                                <input  class="form-control" type="number" [(ngModel)]="model.price" name="price" required >
+                              </div>
+                            </div>
+                          </div>
+                    <br>
+                    <div class="form-group">
+                      <div class="col-md-8 col-md-offset-2">
+                      <input type="submit" name="submit" class="btn btn-success form-control" value="Add">
+                    </div>
+                    </div>
+              </fieldset>
+              </form>
+        </div>
+</div>
+</div>
+</div>

@@ -1,0 +1,124 @@
+<section *ngIf = "bShow" class="mbr-section mbr-section--relative" id="msg-box4-16" data-rv-view="400" style="padding:0px">
+    
+    <div class="mbr-section__container mbr-section__container--isolated container-fluid divResource" >
+        <div class="row">
+            <div class="mbr-box mbr-box--fixed mbr-box--adapted">
+                <div *ngIf="resource.images.length > 0" class="mbr-box__magnet mbr-box__magnet--top-right mbr-section__left col-sm-7 image-size">
+                    <section class="mbr-slider mbr-section mbr-section--no-padding carousel slide" data-ride="carousel" data-wrap="true" data-interval="2000" id="{{resource._id}}" data-rv-view="403">
+                        <div class="mbr-section__container article-slider container">
+                            <div class="col-sm-7 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                                <ol class="carousel-indicators">
+                                    <li *ngFor="let item of images;let first = first;let i = index" data-app-prevent-settings="" [attr.data-target]="'#' + resource._id" [attr.data-slide-to]="i" [ngClass]="{'active':first}"></li>
+                                </ol>
+
+                                <div class="carousel-inner" role="listbox">
+                                    
+                                        <div *ngFor="let item of images;let first = first" [ngClass]="{'mbr-box mbr-section mbr-section--relative mbr-section--fixed-size mbr-section--bg-adapted item dark center':true, 'active':first}">
+                                            <div class="mbr-box__magnet mbr-box__magnet--center-right">                                          
+                                                <div>
+                                                    <img src={{item}} style="padding:25px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>                        
+                                <a data-app-prevent-settings="" class="left carousel-control" role="button" data-slide="prev" [attr.href]="'#' + resource._id" style="border:0px">
+                                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a data-app-prevent-settings="" class="right carousel-control" role="button" data-slide="next" [attr.href]="'#' + resource._id" style="border:0px">
+                                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="mbr-box__magnet mbr-class-mbr-box__magnet--center-left col-sm-6 content-size mbr-section__right">
+                    <div class="mbr-section__container mbr-section__container--middle">
+                        <div class="mbr-header mbr-header--auto-align mbr-header--wysiwyg">
+                            <h3 *ngIf="level > 0" class="mbr-header__text" style="color:#eaddb7;text-align:center">{{resource.name + "     " + resource.price + "€"}}</h3>                     
+                            
+                            <h3 *ngIf="level == 0" class="mbr-header__text" style="color:#eaddb7;text-align:center">{{resource.name }}</h3>
+                            <div style="text-align:center"><i *ngFor="let i of getArray(feedback.stars)" class="ace-icon fa fa-star orange"></i></div>
+                            <p *ngIf="feedback.stars == 0" style="color:coral;text-align:center"> Not rated </p>
+                            <p *ngIf="feedback.stars == -1 && level < 2" style="color:coral;text-align:center"> Not completed </p>
+                        </div>
+                    </div>      
+                    <div class="mbr-section__container mbr-section__container--middle">
+                        <div class="mbr-article mbr-article--auto-align mbr-article--wysiwyg" style="padding:15px;"><p>{{resource.description}}</p><p  *ngIf="level != 0">{{resource.numberofguests + " guests are available"}}</p></div>
+                    </div>
+                    <div  class="mbr-section__container">
+                        <div class="mbr-buttons mbr-buttons--center">
+                            
+                                <a *ngIf="level != 1 && feedback.stars > 0" class="mbr-buttons__btn btn btn-lg btn-danger" data-toggle="modal" [attr.data-target]= "'#feedbackmodal' + resource._id">
+                                    <i class="ace-icon fa fa-comments"></i>
+                                </a>
+                                <a *ngIf="level == 1 &&feedback.stars != -1" class="mbr-buttons__btn btn btn-lg btn-danger" data-toggle="modal" [attr.data-target]= "'#leavefeedbackmodal' + resource._id">
+                                    <i class="ace-icon fa fa-comments"></i>
+                                </a>
+                                <a *ngIf="authService.isServiceProvider() && level == 3" class="mbr-buttons__btn btn btn-lg btn-danger" [routerLink]="['/service/analysis', resource._id]">
+                                    <i class="ace-icon fa fa-bar-chart-o"></i>
+                                </a>
+                                <a class="mbr-buttons__btn btn btn-lg btn-danger" *ngIf="authService.isServiceProvider() && level == 3" [routerLink]="['/service/editservice', resource._id]"><i class="ace-icon fa  fa-pencil-square-o"></i></a>
+                                <!-- <a *ngIf="authService.isServiceProvider()" class="mbr-buttons__btn btn btn-lg btn-danger" routerLink="['/service/editservice', resource._id]"><i class="ace-icon fa  fa-pencil-square-o"></i></a>  -->
+                                <a *ngIf="authService.isServiceProvider() && level == 3" class="mbr-buttons__btn btn btn-lg btn-danger" (click)="OnRemove()"><i class="ace-icon fa fa-trash"></i></a>
+                                <a *ngIf="!authService.isServiceProvider() && level == 2"  class="mbr-buttons__btn btn btn-lg btn-danger" (click)="Regenerate()"><i class="ace-icon fa fa-retweet"></i></a>
+                            </div>                    
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+ 
+    </div>
+  </section>
+  
+  <div [id]="'feedbackmodal' + resource._id" class="modal fade" role="dialog" style="border-radius:20px;">
+      <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="badge badge-pink">{{feedbacks.length}}</span> &nbsp;&nbsp;feedback
+          </div>
+          <div class="modal-body">
+            <div *ngFor="let item of feedbacks" class="well" style="padding:8px;margin-bottom:5px;font-weight:bold">
+                <i *ngFor="let i of getArray(item.stars)" class="ace-icon fa fa-star orange"></i>
+               
+              <label style="font-style: italic;font-size: small;font-weight:normal;">{{item.feedback}}</label></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning btn-xs" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+
+    <div [id]="'leavefeedbackmodal' + resource._id" class="modal fade" role="dialog" style="border-radius:20px;">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4>Leave feedback</h4>
+              
+            </div>
+            <div class="modal-body">
+                    <textarea [(ngModel)] = "feedback.feedback"></textarea>
+                <div class ="alert alert-warning" *ngIf = "feedback.feedback == undefined || feedback.feedback.length < 20">At least 20 characters</div>
+                <div class="rating" *ngIf="feedback.feedback != undefined && feedback.feedback.length >= 20">
+                        <span *ngFor="let item of getArray(5);let i = index" (click)="rate(i)" data-dismiss="modal">☆</span>
+                        
+                </div>
+            </div>
+            <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-warning btn-xs" data-dismiss="modal" (ngclick)="feedback()"><span class="glyphicon glyphicon-ok"></span></button>
+              <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+            </div> -->
+          </div>
+      
+        </div>
+      </div>
+  
+  

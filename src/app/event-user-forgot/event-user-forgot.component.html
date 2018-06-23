@@ -1,0 +1,18 @@
+<div class="container-fluid maindiv">
+    <h1 style="margin-top:150px;text-align:center;">Forgot Password</h1>
+    <br>
+  <div class="col-md-4 col-md-offset-4 col-sm-8  col-sm-offset-2 col-xs-10 col-xs-offset-1 main">
+  <form (submit)="OnForgotSubmit()">
+    <flash-message></flash-message>
+    <div class="form-group">
+      <label for="username">UserName or Email</label>
+      <input type="text" class="form-control" [(ngModel)]="email_username" name="email_username" placeholder="Username or Email">
+    </div>
+    <input type="submit" value="Submit" class="btn btn-success" style="width:100%;">
+
+  </form>
+  <br>
+  <a class="nav-link abtn" [routerLink]="['/event/login']">Log In</a>
+  <a class="nav-link abtn" [routerLink]="['/event/register']" style="float:right;">Sign Up</a>
+</div>
+</div>

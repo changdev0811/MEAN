@@ -1,0 +1,32 @@
+div.main{
+    border-radius: 15px;
+    padding: 30px;
+    color:white;
+    -moz-box-shadow:    inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow:         inset 0 0 10px #000000;
+  }
+  .back{
+    margin-bottom:15px;
+    margin-left:9%; 
+  }
+  @media (max-width:350px){
+    h1{
+      font-size:20px;
+    }
+    .mbr-hero__text{
+      font-size:20px;
+    }
+  }
+  .abtn:hover{
+    color:rgb(241, 225, 225);
+  }
+  .abtn{
+  color:rgb(112, 198, 115);
+  }
+  form{
+    margin-top: 50px;
+  }
+  .routelink:hover{
+    cursor: pointer;
+  }
